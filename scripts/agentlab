@@ -1,0 +1,6 @@
+#!/bin/sh
+# AgentLaboratory researcher CLI (installed to /usr/local/bin/agentlab).
+# -I: isolated mode -- ignore PYTHONPATH/PYTHONHOME/user site-packages so a user
+# cannot inject code into the CLI through the environment.
+AGENTLAB_HOME="${AGENTLAB_INSTALL_ROOT:-/opt/agentlab}"
+exec "$AGENTLAB_HOME/venv/bin/python" -I "$AGENTLAB_HOME/app/server/agentlab_cli.py" "$@"

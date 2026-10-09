@@ -1,0 +1,28 @@
+[Unit]
+Description=AgentLaboratory supervisor daemon (agentlabd): runs, audit log, sessions
+Documentation=file:///opt/agentlab/app/README_SERVER.md
+After=network-online.target
+Wants=network-online.target agentlab-llm-proxy.service
+
+[Service]
+Type=simple
+# Runs as root: it must create per-user workspaces, start runs as each user
+# (systemd-run --uid) and be the only writer of the protected audit log.
+# It never executes research code itself and never handles provider API keys.
+ExecStart=/opt/agentlab/venv/bin/python -I /opt/agentlab/app/server/daemon.py --config /opt/agentlab/config/server.yaml
+Restart=on-failure
+RestartSec=3
+# Research runs are separate transient units, so stopping/restarting the daemon
+# (e.g. during deployment) never kills them; they are re-adopted on start.
+KillMode=process
+UMask=0027
+# /run/agentlab is created by /etc/tmpfiles.d/agentlab.conf
+# No API keys here on purpose -- see agentlab-llm-proxy.service.
+UnsetEnvironment=OPENAI_API_KEY OPENROUTER_API_KEY DEEPSEEK_API_KEY GEMINI_API_KEY ANTHROPIC_API_KEY
+ProtectHome=read-only
+PrivateTmp=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+
+[Install]
+WantedBy=multi-user.target

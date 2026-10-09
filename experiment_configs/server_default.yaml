@@ -1,0 +1,22 @@
+# Default experiment configuration for runs started through `agentlab` on the shared server.
+# A researcher can override it by placing a file at <workspace>/config/agentlab.yaml
+# or passing `agentlab start --config FILE`.
+#
+# NEVER put API keys here (the server rejects configs that contain them).
+# The research topic is NOT set here: it always comes from the user's research_idea.txt.
+
+copilot-mode: False
+
+llm-backend: "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free"
+lit-review-backend: "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free"
+
+language: "English"
+num-papers-lit-review: 5
+num-papers-to-write: 1
+parallel-labs: False
+mlesolver-max-steps: 3
+papersolver-max-steps: 1
+except-if-fail: False
+compile-latex: False
+
+task-notes: {}

@@ -1,0 +1,29 @@
+venv*
+.idea*
+tst*
+state*
+junk/*
+huggingface_*
+junk/logs
+papers*
+hf*
+junk/data/*
+research_dir/*
+.DS_Store
+state_saves/*
+__pycache__/*
+Figure*.png
+testrun.py
+# local backups made before the multi-user server changes
+.backups/
+research_projects/
+
+# Python bytecode in every folder, local logs and run timing files
+__pycache__/
+*.pyc
+tensorflow_import.log
+agent_times_*.txt
+
+# macOS Finder metadata
+.DS_Store
+**/.DS_Store

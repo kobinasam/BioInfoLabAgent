@@ -1,0 +1,61 @@
+# AgentLaboratory server configuration.
+# Installed to /opt/agentlab/config/server.yaml (root:root 0644) by scripts/install_server.sh.
+# Contains NO secrets: provider API keys live only in /etc/agentlab/secrets.env (root:root 0600).
+
+server:
+  install_root: /opt/agentlab
+  application_root: /opt/agentlab/app          # symlink -> /opt/agentlab/releases/<commit>
+  workspace_root: /opt/agentlab/users
+  system_root: /opt/agentlab/system
+  audit_log: /opt/agentlab/system/logs/agentlab_audit.log
+  state_dir: /opt/agentlab/system/state
+  socket_path: /run/agentlab/agentlabd.sock
+  python: /opt/agentlab/venv/bin/python
+  users_group: agentlab-users
+  admins_group: agentlab-admins
+
+execution:
+  one_active_run_per_user: false  # true = at most one active job per user
+  max_runs_per_user: 3            # active (queued + running) jobs per user; extra jobs are refused
+  max_concurrent_runs: 4
+  resume_enabled: true
+  auto_resume_after_restart: false  # true = re-queue runs interrupted by a reboot automatically
+  launcher: systemd               # systemd (production) | subprocess (development only)
+  pipeline: agentlab              # agentlab (real) | simulated (health checks / tests)
+  poll_interval_seconds: 5
+  stop_timeout_seconds: 60
+  memory_max: 32G                 # cgroup limit per run
+  cpu_quota: ""                   # e.g. "400%" = 4 cores
+  tasks_max: 4096
+
+resources:
+  min_free_ram_gb: 4.0
+  min_free_cpu_percent: 10.0
+  gpus_per_run: 0                 # >0 assigns GPUs via CUDA_VISIBLE_DEVICES
+  min_free_gpu_memory_mb: 0
+
+security:
+  protected_audit_log: true
+  require_user_isolation: true
+  secrets_server_side_only: true
+  status_visibility: usernames     # own | usernames | full  (what non-admins see of others)
+  max_request_bytes: 1048576
+
+research:
+  idea_filename: research_idea.txt
+  max_idea_bytes: 65536
+  default_experiment_config: experiment_configs/server_default.yaml
+  allowed_llm_backends: []          # empty = any backend the proxy has a key for
+
+llm_proxy:
+  enabled: true
+  listen_host: 127.0.0.1
+  listen_port: 8765
+  tokens_file: /run/agentlab/proxy/tokens.json
+  max_concurrent_requests_per_user: 8
+
+git:
+  require_review_before_deploy: true
+  deploy_branch: main
+  repo_mirror: /opt/agentlab/repo.git
+  releases_dir: /opt/agentlab/releases

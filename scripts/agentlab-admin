@@ -1,0 +1,5 @@
+#!/bin/sh
+# AgentLaboratory administrator CLI (installed to /usr/local/bin/agentlab-admin).
+# Authorization is enforced by agentlabd via group membership (agentlab-admins).
+AGENTLAB_HOME="${AGENTLAB_INSTALL_ROOT:-/opt/agentlab}"
+exec "$AGENTLAB_HOME/venv/bin/python" -I "$AGENTLAB_HOME/app/server/admin_cli.py" "$@"

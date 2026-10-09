@@ -1,0 +1,6 @@
+#!/bin/sh
+# Called by pam_exec.so (as root) on SSH session open/close.
+# Never fails: SSH access must not depend on AgentLaboratory being healthy.
+# $PPID is the sshd session process (same for open and close).
+AGENTLAB_SESSION_PID=$PPID timeout 5 /opt/agentlab/venv/bin/python -I /opt/agentlab/app/server/pam_hook.py >/dev/null 2>&1 || true
+exit 0

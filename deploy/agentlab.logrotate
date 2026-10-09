@@ -1,0 +1,20 @@
+# /etc/logrotate.d/agentlab -- administrator-controlled rotation of the audit log.
+# The live file carries the append-only attribute (chattr +a); it is lifted only
+# for the instant of rotation, by root, and re-applied to the new file.
+/opt/agentlab/system/logs/agentlab_audit.log {
+    monthly
+    rotate 24
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 0640 root agentlab-admins
+    sharedscripts
+    prerotate
+        chattr -a /opt/agentlab/system/logs/agentlab_audit.log 2>/dev/null || true
+    endscript
+    postrotate
+        chattr +a /opt/agentlab/system/logs/agentlab_audit.log 2>/dev/null || true
+        for f in /opt/agentlab/system/logs/agentlab_audit.log.*; do chattr +i "$f" 2>/dev/null || true; done
+    endscript
+}
