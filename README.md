@@ -155,35 +155,4 @@ There is a lot of room to improve this codebase, so if you end up making changes
 
 Source Code Licensing: Our project's source code is licensed under the MIT License. This license permits the use, modification, and distribution of the code, subject to certain conditions outlined in the MIT License.
 
-## 📬 Contact
-
-If you would like to get in touch, feel free to reach out to [sschmi46@jhu.edu](mailto:sschmi46@jhu.edu)
-
-## Reference / Bibtex
-
-
-### Agent Laboratory
-```bibtex
-@misc{schmidgall2025agentlaboratoryusingllm,
-      title={Agent Laboratory: Using LLM Agents as Research Assistants}, 
-      author={Samuel Schmidgall and Yusheng Su and Ze Wang and Ximeng Sun and Jialian Wu and Xiaodong Yu and Jiang Liu and Michael Moor and Zicheng Liu and Emad Barsoum},
-      year={2025},
-      eprint={2501.04227},
-      archivePrefix={arXiv},
-      primaryClass={cs.HC},
-      url={https://arxiv.org/abs/2501.04227}, 
-}
-```
-
-### AgentRxiv
-```bibtex
-@misc{schmidgall2025agentrxiv,
-      title={AgentRxiv: Towards Collaborative Autonomous Research}, 
-      author={Samuel Schmidgall and Michael Moor},
-      year={2025},
-      eprint={2503.18102},
-      archivePrefix={arXiv},
-      primaryClass={cs.AI},
-      url={https://arxiv.org/abs/2503.18102}, 
-}
 ```
