@@ -1,4 +1,4 @@
-name: Trajectory-Parallelization Rsync Deployment
+name: BioAILabAgent Rsync Deployment
 on:
   push:
     branches:
