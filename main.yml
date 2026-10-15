@@ -1,0 +1,20 @@
+name: Trajectory-Parallelization Rsync Deployment
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@6.0.0
+      with:
+        switches: -avzr --filter=':- .gitignore'
+        path: ./
+        remote_path: ${{ secrets.PUBLIC_PATH }}
+        remote_host: ${{ secrets.HOSTIP }}
+        remote_user: ${{ secrets.USER_NAME }}
+        remote_key: ${{ secrets.PRIVATE_KEY }}
